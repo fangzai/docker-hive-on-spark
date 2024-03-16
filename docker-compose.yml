@@ -248,22 +248,22 @@ services:
       - ~/docker_data/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/local/bin/docker
-  oracle-db:
-    image: store/oracle/database-enterprise:12.2.0.1
-    container_name: oracle-db
-    ports:
-      - "1521:1521"
-    environment:
-      - ORACLE_PWD=your_password
-      - ORACLE_CHARACTERSET=AL32UTF8
-      - ORACLE_SID=ORCL
-    volumes:
-      - ./oracle-data:/opt/oracle/oradata
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:1521/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 30
+  # oracle-db:
+  #   image: store/oracle/database-enterprise:12.2.0.1
+  #   container_name: oracle-db
+  #   ports:
+  #     - "1521:1521"
+  #   environment:
+  #     - ORACLE_PWD=your_password
+  #     - ORACLE_CHARACTERSET=AL32UTF8
+  #     - ORACLE_SID=ORCL
+  #   volumes:
+  #     - ./oracle-data:/opt/oracle/oradata
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:1521/status"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 30
 
   psqlhms: 
     image: anzupop/spark_hive_cluster:postgresql-hms
@@ -469,25 +469,25 @@ services:
       - node2
       - node3
   nifi:
-  #   hostname: nifi
-  #   image: anzupop/spark_hive_cluster:nifi
-  #   ports:
-  #     - "28080:8080"
-  #   entrypoint: /entrypoint.sh
-  #   volumes:
-  #     # custom entrypoint
-  #     - type: bind
-  #       source: ./nifi/entrypoint.sh
-  #       target: /entrypoint.sh
-  #     # nifi image specified
-  #     - type: bind
-  #       source: ./nifi/conf/nifi.properties
-  #       target: /home/hadoop/nifi/conf/nifi.properties
-  #   depends_on:
-  #     - psqlhms
-  #     - nodemaster
-  #     - node2
-  #     - node3
+    hostname: nifi
+    image: anzupop/spark_hive_cluster:nifi
+    ports:
+      - "28080:8080"
+    entrypoint: /entrypoint.sh
+    volumes:
+      # custom entrypoint
+      - type: bind
+        source: ./nifi/entrypoint.sh
+        target: /entrypoint.sh
+      # nifi image specified
+      - type: bind
+        source: ./nifi/conf/nifi.properties
+        target: /home/hadoop/nifi/conf/nifi.properties
+    depends_on:
+      - psqlhms
+      - nodemaster
+      - node2
+      - node3
 
 volumes:
   postgres-db-volume:    
