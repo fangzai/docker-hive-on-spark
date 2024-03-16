@@ -1,6 +1,5 @@
 FROM gethue/hue:latest
 
-MAINTAINER Nemo Xiong <nemo@anzupop.com>
 
 USER root
 

@@ -1,6 +1,5 @@
 FROM anzupop/spark_hive_cluster:hive
 
-MAINTAINER Nemo Xiong <nemo@anzupop.com>
 
 USER root
 

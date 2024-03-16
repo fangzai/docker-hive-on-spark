@@ -1,6 +1,5 @@
 FROM postgres
 
-MAINTAINER Nemo Xiong <nemo@anzupop.com>
 
 RUN export LANGUAGE=en_US.UTF-8
 
