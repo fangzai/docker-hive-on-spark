@@ -1,6 +1,6 @@
 FROM ubuntu:focal
 
-MAINTAINER Nemo Xiong <nemo@anzupop.com>
+
 
 USER root
 
