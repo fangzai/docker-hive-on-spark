@@ -248,22 +248,22 @@ services:
       - ~/docker_data/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/local/bin/docker
-  oracle-db:
-    image: store/oracle/database-enterprise:12.2.0.1
-    container_name: oracle-db
-    ports:
-      - "1521:1521"
-    environment:
-      - ORACLE_PWD=your_password
-      - ORACLE_CHARACTERSET=AL32UTF8
-      - ORACLE_SID=ORCL
-    volumes:
-      - ./oracle-data:/opt/oracle/oradata
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:1521/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 30
+  # oracle-db:
+  #   image: store/oracle/database-enterprise:12.2.0.1
+  #   container_name: oracle-db
+  #   ports:
+  #     - "1521:1521"
+  #   environment:
+  #     - ORACLE_PWD=your_password
+  #     - ORACLE_CHARACTERSET=AL32UTF8
+  #     - ORACLE_SID=ORCL
+  #   volumes:
+  #     - ./oracle-data:/opt/oracle/oradata
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:1521/status"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 30
 
   psqlhms: 
     image: anzupop/spark_hive_cluster:postgresql-hms
