@@ -265,210 +265,210 @@ services:
       timeout: 10s
       retries: 30
 
-  # psqlhms: 
-  #   image: anzupop/spark_hive_cluster:postgresql-hms
-  #   hostname: psqlhms
-  #   volumes:
-  #     # postgresql data
-  #     - type: bind
-  #       source: ./.persistence/db
-  #       target: /var/lib/postgresql/data
-  #   environment:
-  #     - POSTGRES_PASSWORD=hive
-  # node2:
-  #   hostname: node2
-  #   image: anzupop/spark_hive_cluster:hive
-  #   entrypoint: /entrypoint.sh
-  #   ports:
-  #     # spark worker web UI port
-  #     - "20021:8081"
-  #   volumes:
-  #     # exchange
-  #     - type: bind
-  #       source: ./spark/exchange/
-  #       target: /exchange
-  #     # custom entrypoint
-  #     - type: bind
-  #       source: ./spark/entrypoint.sh
-  #       target: /entrypoint.sh
-  #     # hadoop image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/core-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/hdfs-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/mapred-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/yarn-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/hadoop/etc/hadoop/workers
-  #     - type: bind
-  #       source: ./hadoop/conf/hadoop-env.sh
-  #       target: /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
-  #     # spark image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/spark/conf/slaves
-  #     - type: bind
-  #       source: ./spark/conf/spark-env.sh
-  #       target: /home/hadoop/spark/conf/spark-env.sh
-  #     - type: bind
-  #       source: ./spark/conf/spark-defaults.conf
-  #       target: /home/hadoop/spark/conf/spark-defaults.conf
-  #   expose:
-  #     - "1-65535"
-  #   depends_on:
-  #     - psqlhms
-  # node3:
-  #   hostname: node3
-  #   image: anzupop/spark_hive_cluster:hive
-  #   entrypoint: /entrypoint.sh
-  #   ports:
-  #     # spark worker web UI port
-  #     - "20031:8081"
-  #   volumes:
-  #     # exchange
-  #     - type: bind
-  #       source: ./spark/exchange/
-  #       target: /exchange
-  #     # custom entrypoint
-  #     - type: bind
-  #       source: ./spark/entrypoint.sh
-  #       target: /entrypoint.sh
-  #     # hadoop image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/core-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/hdfs-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/mapred-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/yarn-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/hadoop/etc/hadoop/workers
-  #     - type: bind
-  #       source: ./hadoop/conf/hadoop-env.sh
-  #       target: /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
-  #     # spark image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/spark/conf/slaves
-  #     - type: bind
-  #       source: ./spark/conf/spark-env.sh
-  #       target: /home/hadoop/spark/conf/spark-env.sh
-  #     - type: bind
-  #       source: ./spark/conf/spark-defaults.conf
-  #       target: /home/hadoop/spark/conf/spark-defaults.conf
-  #   expose:
-  #     - "1-65535"
-  #   depends_on:
-  #     - psqlhms
-  # nodemaster:
-  #   hostname: nodemaster
-  #   image: anzupop/spark_hive_cluster:hive
-  #   ports:
-  #     # spark master web UI port
-  #     - "20010:8080"
-  #     # hadoop web UI port
-  #     - "20012:8088"
-  #   entrypoint: /entrypoint.sh
-  #   volumes:
-  #     # exchange
-  #     - type: bind
-  #       source: ./hive/exchange/
-  #       target: /exchange
-  #     # custom entrypoint
-  #     - type: bind
-  #       source: ./hive/entrypoint.sh
-  #       target: /entrypoint.sh
-  #     # hadoop image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/core-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/hdfs-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/mapred-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/yarn-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/hadoop/etc/hadoop/workers
-  #     - type: bind
-  #       source: ./hadoop/conf/hadoop-env.sh
-  #       target: /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
-  #     # spark image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/spark/conf/slaves
-  #     - type: bind
-  #       source: ./spark/conf/spark-env.sh
-  #       target: /home/hadoop/spark/conf/spark-env.sh
-  #     - type: bind
-  #       source: ./spark/conf/spark-defaults.conf
-  #       target: /home/hadoop/spark/conf/spark-defaults.conf
-  #     # hive image specified
-  #     - type: bind
-  #       source: ./hive/conf/hive-site.xml
-  #       target: /home/hadoop/hive/conf/hive-site.xml
-  #   depends_on:
-  #     - psqlhms
-  #   expose:
-  #     - "1-65535"
-  #     # - node2
-  #     # - node3
-  # edge:
-  #   hostname: edge
-  #   image: anzupop/spark_hive_cluster:edge
-  #   entrypoint: /entrypoint.sh
-  #   volumes:
-  #     # custom entrypoint
-  #     - type: bind
-  #       source: ./edge/entrypoint.sh
-  #       target: /entrypoint.sh
-  #     # hadoop image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/core-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/hdfs-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/mapred-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/yarn-site.xml
-  #       target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/hadoop/etc/hadoop/workers
-  #     # spark image specified
-  #     - type: bind
-  #       source: ./hadoop/conf/workers
-  #       target: /home/hadoop/spark/conf/slaves
-  #     # hive image specified
-  #     - type: bind
-  #       source: ./hive/conf/hive-site.xml
-  #       target: /home/hadoop/hive/conf/hive-site.xml
-  #   depends_on:
-  #     - psqlhms
-  #     - nodemaster
-  #     - node2
-  #     - node3
-  # nifi:
+  psqlhms: 
+    image: anzupop/spark_hive_cluster:postgresql-hms
+    hostname: psqlhms
+    volumes:
+      # postgresql data
+      - type: bind
+        source: ./.persistence/db
+        target: /var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=hive
+  node2:
+    hostname: node2
+    image: anzupop/spark_hive_cluster:hive
+    entrypoint: /entrypoint.sh
+    ports:
+      # spark worker web UI port
+      - "20021:8081"
+    volumes:
+      # exchange
+      - type: bind
+        source: ./spark/exchange/
+        target: /exchange
+      # custom entrypoint
+      - type: bind
+        source: ./spark/entrypoint.sh
+        target: /entrypoint.sh
+      # hadoop image specified
+      - type: bind
+        source: ./hadoop/conf/core-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
+      - type: bind
+        source: ./hadoop/conf/hdfs-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
+      - type: bind
+        source: ./hadoop/conf/mapred-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
+      - type: bind
+        source: ./hadoop/conf/yarn-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/hadoop/etc/hadoop/workers
+      - type: bind
+        source: ./hadoop/conf/hadoop-env.sh
+        target: /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
+      # spark image specified
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/spark/conf/slaves
+      - type: bind
+        source: ./spark/conf/spark-env.sh
+        target: /home/hadoop/spark/conf/spark-env.sh
+      - type: bind
+        source: ./spark/conf/spark-defaults.conf
+        target: /home/hadoop/spark/conf/spark-defaults.conf
+    expose:
+      - "1-65535"
+    depends_on:
+      - psqlhms
+  node3:
+    hostname: node3
+    image: anzupop/spark_hive_cluster:hive
+    entrypoint: /entrypoint.sh
+    ports:
+      # spark worker web UI port
+      - "20031:8081"
+    volumes:
+      # exchange
+      - type: bind
+        source: ./spark/exchange/
+        target: /exchange
+      # custom entrypoint
+      - type: bind
+        source: ./spark/entrypoint.sh
+        target: /entrypoint.sh
+      # hadoop image specified
+      - type: bind
+        source: ./hadoop/conf/core-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
+      - type: bind
+        source: ./hadoop/conf/hdfs-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
+      - type: bind
+        source: ./hadoop/conf/mapred-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
+      - type: bind
+        source: ./hadoop/conf/yarn-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/hadoop/etc/hadoop/workers
+      - type: bind
+        source: ./hadoop/conf/hadoop-env.sh
+        target: /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
+      # spark image specified
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/spark/conf/slaves
+      - type: bind
+        source: ./spark/conf/spark-env.sh
+        target: /home/hadoop/spark/conf/spark-env.sh
+      - type: bind
+        source: ./spark/conf/spark-defaults.conf
+        target: /home/hadoop/spark/conf/spark-defaults.conf
+    expose:
+      - "1-65535"
+    depends_on:
+      - psqlhms
+  nodemaster:
+    hostname: nodemaster
+    image: anzupop/spark_hive_cluster:hive
+    ports:
+      # spark master web UI port
+      - "20010:8080"
+      # hadoop web UI port
+      - "20012:8088"
+    entrypoint: /entrypoint.sh
+    volumes:
+      # exchange
+      - type: bind
+        source: ./hive/exchange/
+        target: /exchange
+      # custom entrypoint
+      - type: bind
+        source: ./hive/entrypoint.sh
+        target: /entrypoint.sh
+      # hadoop image specified
+      - type: bind
+        source: ./hadoop/conf/core-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
+      - type: bind
+        source: ./hadoop/conf/hdfs-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
+      - type: bind
+        source: ./hadoop/conf/mapred-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
+      - type: bind
+        source: ./hadoop/conf/yarn-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/hadoop/etc/hadoop/workers
+      - type: bind
+        source: ./hadoop/conf/hadoop-env.sh
+        target: /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
+      # spark image specified
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/spark/conf/slaves
+      - type: bind
+        source: ./spark/conf/spark-env.sh
+        target: /home/hadoop/spark/conf/spark-env.sh
+      - type: bind
+        source: ./spark/conf/spark-defaults.conf
+        target: /home/hadoop/spark/conf/spark-defaults.conf
+      # hive image specified
+      - type: bind
+        source: ./hive/conf/hive-site.xml
+        target: /home/hadoop/hive/conf/hive-site.xml
+    depends_on:
+      - psqlhms
+    expose:
+      - "1-65535"
+      # - node2
+      # - node3
+  edge:
+    hostname: edge
+    image: anzupop/spark_hive_cluster:edge
+    entrypoint: /entrypoint.sh
+    volumes:
+      # custom entrypoint
+      - type: bind
+        source: ./edge/entrypoint.sh
+        target: /entrypoint.sh
+      # hadoop image specified
+      - type: bind
+        source: ./hadoop/conf/core-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/core-site.xml
+      - type: bind
+        source: ./hadoop/conf/hdfs-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/hdfs-site.xml
+      - type: bind
+        source: ./hadoop/conf/mapred-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/mapred-site.xml
+      - type: bind
+        source: ./hadoop/conf/yarn-site.xml
+        target: /home/hadoop/hadoop/etc/hadoop/yarn-site.xml
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/hadoop/etc/hadoop/workers
+      # spark image specified
+      - type: bind
+        source: ./hadoop/conf/workers
+        target: /home/hadoop/spark/conf/slaves
+      # hive image specified
+      - type: bind
+        source: ./hive/conf/hive-site.xml
+        target: /home/hadoop/hive/conf/hive-site.xml
+    depends_on:
+      - psqlhms
+      - nodemaster
+      - node2
+      - node3
+  nifi:
   #   hostname: nifi
   #   image: anzupop/spark_hive_cluster:nifi
   #   ports:
