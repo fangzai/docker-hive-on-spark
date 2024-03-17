@@ -6,7 +6,8 @@ x-airflow-common:
   # In order to add custom dependencies or upgrade provider packages you can use your extended image.
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
-  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.3}
+  #image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.3}
+  image: wanghaitao8118/airflow:pyspark
   # build: .
   environment:
     &airflow-common-env
@@ -83,7 +84,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+    networks:
+      - spark_network  
   airflow-scheduler:
     <<: *airflow-common
     command: scheduler
@@ -98,7 +100,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+    networks:
+      - spark_network
   airflow-worker:
     <<: *airflow-common
     command: celery worker
@@ -121,7 +124,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+    networks:
+      - spark_network
   airflow-triggerer:
     <<: *airflow-common
     command: triggerer
@@ -136,7 +140,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+    networks:
+      - spark_network
   airflow-init:
     <<: *airflow-common
     entrypoint: /bin/bash
@@ -200,7 +205,8 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
-
+    networks:
+      - spark_network
   airflow-cli:
     <<: *airflow-common
     profiles:
@@ -213,7 +219,8 @@ services:
       - bash
       - -c
       - airflow
-
+    networks:
+      - spark_network
   # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
   # or by explicitly targeted on the command line e.g. docker-compose up flower.
   # See: https://docs.docker.com/compose/profiles/
@@ -235,7 +242,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
+    networks:
+      - spark_network
   jenkins:
     image: jenkins/jenkins:lts
     privileged: true
@@ -248,6 +256,8 @@ services:
       - ~/docker_data/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/local/bin/docker
+    networks:
+      - spark_network  
   # oracle-db:
   #   image: store/oracle/database-enterprise:12.2.0.1
   #   container_name: oracle-db
@@ -275,6 +285,8 @@ services:
         target: /var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=hive
+    networks:
+      - spark_network  
   node2:
     hostname: node2
     image: anzupop/spark_hive_cluster:hive
@@ -324,6 +336,8 @@ services:
       - "1-65535"
     depends_on:
       - psqlhms
+    networks:
+      - spark_network  
   node3:
     hostname: node3
     image: anzupop/spark_hive_cluster:hive
@@ -373,6 +387,8 @@ services:
       - "1-65535"
     depends_on:
       - psqlhms
+    networks:
+      - spark_network  
   nodemaster:
     hostname: nodemaster
     image: anzupop/spark_hive_cluster:hive
@@ -430,6 +446,8 @@ services:
       - "1-65535"
       # - node2
       # - node3
+    networks:
+      - spark_network  
   edge:
     hostname: edge
     image: anzupop/spark_hive_cluster:edge
@@ -491,5 +509,7 @@ services:
 
 volumes:
   postgres-db-volume:    
-    
+
+networks:
+  spark_network:    
 
